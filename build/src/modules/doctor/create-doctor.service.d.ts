@@ -1,0 +1,50 @@
+type TimeSlotData = {
+    shift: "Morning" | "Evening";
+    dayOfWeek: "Saturday" | "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday";
+    startTime: string;
+    endTime: string;
+};
+type DoctorData = {
+    username: string;
+    name: string;
+    password: string;
+    categoryId: number;
+    birthDate: string;
+    yearsofExperience: string;
+    education: string;
+    awards?: string;
+    specializationLong: string;
+    specializationShort: string;
+    week: ("Saturday" | "Sunday" | "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday")[];
+    timeSlots: TimeSlotData[];
+    phone: string;
+    email: string;
+};
+export declare const createDoctor: ({ username, password, name, categoryId, birthDate, yearsofExperience, education, awards, specializationLong, specializationShort, week, timeSlots, email, phone, }: DoctorData) => Promise<{
+    username: string;
+    avatar: string;
+    timeSlots: {
+        id: number;
+        createdAt: Date;
+        shift: import(".prisma/client").$Enums.Shift;
+        doctorId: number;
+        dayOfWeek: import(".prisma/client").$Enums.Week;
+        startTime: string;
+        endTime: string;
+    }[];
+    name: string;
+    createdAt: Date;
+    email: string;
+    phone: string;
+    birthDate: string;
+    userId: number;
+    categoryId: number;
+    yearsofExperience: string;
+    education: string;
+    awards: string;
+    specializationLong: string;
+    specializationShort: string;
+    week: import(".prisma/client").$Enums.Week[];
+    profileImage: string | null;
+}>;
+export {};
