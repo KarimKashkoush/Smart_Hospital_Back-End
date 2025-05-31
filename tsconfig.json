@@ -7,13 +7,13 @@
     "dist"
   ],
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2022",
+    "target": "ES2021",
     "sourceMap": true,
     "rootDir": ".",
     "outDir": "./dist",
