@@ -3,15 +3,15 @@ import express, { NextFunction, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import { env } from "./env";
 import helmet from "helmet";
-import { logger, loggerMiddleware } from "./shared/logger";
-import { handlers } from "./handlers";
-import { errorHandler } from "./shared/error-handler";
-import { AppError } from "./shared/app-error";
-import { StatusCodes } from "http-status-codes";
-import { admin } from "./modules/admin";
+import { logger, loggerMiddleware } from "./src/shared/logger";
+import { handlers } from 'src/handlers';
+import { errorHandler } from 'src/shared/error-handler';
+import { AppError } from 'src/shared/app-error';
+import { StatusCodes } from 'http-status-codes';
+import { admin } from 'src/modules/admin';
 import multer from "multer";
+const PORT = process.env.PORT || 5987;
 dotenv.config();
 
 export const app = express();
@@ -25,8 +25,7 @@ app.use(cors());
   app.use(express.json());
   app.use(express.static("uploads"));
 
-    app.use('/uploads', express.static('uploads'));
-  // app.use(cookieParser());
+  app.use('/uploads', express.static('uploads'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(helmet());
@@ -56,8 +55,8 @@ app.use(cors());
 
     next(error);
   });
-  const server = app.listen(env.PORT, () => {
-    logger.info(`server is running on http://localhost:${env.PORT}`);
+  const server = app.listen(PORT, () => {
+    logger.info(`server is running on http://localhost:${PORT}`);
   });
 
   // eslint-disable-next-line

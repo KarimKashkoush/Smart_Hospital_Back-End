@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createLabTestSchema } from "./lab.validation";
 import { Express } from "express";
-import { db } from "src";
+import { db } from "index";
 import { AppError } from "src/shared/app-error";
 import { StatusCodes } from "http-status-codes";
 export async function createLabTest({

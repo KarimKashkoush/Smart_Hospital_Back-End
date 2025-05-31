@@ -1,7 +1,7 @@
 import { Role } from "@prisma/client";
 import { hashSync } from "bcryptjs";
 
-import { db } from "src";
+import { db } from "index";
 import { AppError } from "src/shared/app-error";
 
 type TimeSlotData = {

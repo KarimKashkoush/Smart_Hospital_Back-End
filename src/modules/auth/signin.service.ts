@@ -1,5 +1,5 @@
 import { compareSync } from "bcrypt";
-import { db } from "src";
+import { db } from "index";
 import { SignJWT } from "jose";
 import { env } from "src/env";
 import zod from "zod";

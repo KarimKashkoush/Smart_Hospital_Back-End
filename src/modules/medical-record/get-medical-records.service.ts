@@ -1,4 +1,4 @@
-import { db } from "src";
+import { db } from "index";
 
 export const getMedicalRecords = async () => {
       const records = await db.medicalRecord.findMany({

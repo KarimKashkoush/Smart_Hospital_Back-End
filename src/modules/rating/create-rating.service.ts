@@ -1,4 +1,4 @@
-import { db } from "src";
+import { db } from "index";
 import { AppError } from "src/shared/app-error";
 
 export const createRating = async ({

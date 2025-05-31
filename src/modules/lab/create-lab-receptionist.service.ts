@@ -1,5 +1,5 @@
 import { hashSync } from "bcryptjs";
-import { db } from "src";
+import { db } from "index";
 import { AppError } from "src/shared/app-error";
 import { z } from "zod";
 import { createLabReceptionistSchema } from "./lab.validation";

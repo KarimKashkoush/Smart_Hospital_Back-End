@@ -1,6 +1,6 @@
 import { Doctor } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
-import { db } from "src";
+import { db } from "index";
 import { AppError } from "src/shared/app-error";
 
 export const deleteDoctor = async (id: string): Promise<Doctor> => {

@@ -1,5 +1,5 @@
 import { hashSync } from "bcrypt";
-import { db } from "src";
+import { db } from "index";
 import jwt from "jsonwebtoken";
 import { env } from "src/env";
 import zod from "zod";

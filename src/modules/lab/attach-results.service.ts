@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { StatusCodes } from "http-status-codes";
-import { db } from "src";
+import { db } from "index";
 import { AppError } from "src/shared/app-error";
 
 export async function attachResutls({
