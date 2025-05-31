@@ -57,6 +57,7 @@ model Patient {
   LabTest                      LabTest[]
   medicalRecord                MedicalRecord[]
   MedicalExcuse                MedicalExcuse[]
+  Rating                       Rating[]
 
   @@map("users")
 }
@@ -83,6 +84,21 @@ model Doctor {
   medicalExcuse       MedicalExcuse[]
   medicalRecord       MedicalRecord[]
   createdAt           DateTime          @default(now())
+  Rating              Rating[]
+}
+
+model Rating {
+  id        Int      @id @default(autoincrement())
+  doctorId  Int
+  patientId Int
+  rating    Int // تقييم من 1 لـ 5 مثلاً
+  comment   String? // تعليق اختياري
+  createdAt DateTime @default(now())
+
+  doctor  Doctor  @relation(fields: [doctorId], references: [userId])
+  patient Patient @relation(fields: [patientId], references: [userId])
+
+  @@unique([doctorId, patientId]) // مريض واحد ما يقدرش يقيم نفس الدكتور أكتر من مرة
 }
 
 model Category {
@@ -175,9 +191,10 @@ model MedicalExcuse {
 
 model MedicalRecord {
   id               Int      @id @default(autoincrement())
-  diagnosis        String // هنا تحط التشخيص اللي الدكتور كتبه
+  diagnosis        String
   treatmentDetails String
   datetime         DateTime @default(now())
+  status           String   @default("pending") // أضفت الحالة هنا
   patientId        Int
   doctorId         Int
   doctor           Doctor   @relation(fields: [doctorId], references: [userId])

@@ -3,6 +3,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import { env } from "./env";
 import helmet from "helmet";
 import { logger, loggerMiddleware } from "./shared/logger";
 import { handlers } from "./handlers";
@@ -17,9 +18,6 @@ export const app = express();
 export const upload = multer({ dest: "uploads/" });
 export const db = new PrismaClient();
 
-const PORT = process.env.PORT || 5000;
-
-
 app.use(cors());
 (async () => {
   await admin();
@@ -27,7 +25,7 @@ app.use(cors());
   app.use(express.json());
   app.use(express.static("uploads"));
 
-  app.use('/uploads', express.static('uploads'));
+    app.use('/uploads', express.static('uploads'));
   // app.use(cookieParser());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -58,8 +56,8 @@ app.use(cors());
 
     next(error);
   });
-  const server = app.listen(PORT, () => {
-    logger.info(`server is running on http://localhost:${PORT}`);
+  const server = app.listen(env.PORT, () => {
+    logger.info(`server is running on http://localhost:${env.PORT}`);
   });
 
   // eslint-disable-next-line

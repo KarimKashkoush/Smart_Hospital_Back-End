@@ -8,6 +8,7 @@ import labRouter from "./modules/lab/lab.controller";
 import receptionistRouter from "./modules/receptionist/receptionist.controller";
 import {medicalExcuseRouter} from "./modules/medical-excuse/excuse.controller";
 import medicalRecordRouter from "./modules/medical-record/medical-record.controller";
+import ratingRouter from "./modules/rating/rating.controller";
 const handlers = Router();
 
 handlers.use(authRouter);
@@ -19,5 +20,6 @@ handlers.use(labRouter);
 handlers.use(receptionistRouter);
 handlers.use(medicalExcuseRouter);
 handlers.use(medicalRecordRouter);
+handlers.use(ratingRouter);
 
 export { handlers };

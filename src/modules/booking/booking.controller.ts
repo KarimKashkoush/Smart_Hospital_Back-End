@@ -77,5 +77,39 @@ bookingRouter.delete(
 );
 
 
+import { updateBooking } from "./update-booking.service"; // لو الملف اسمه كده
+
+bookingRouter.put(
+  "/update-booking",
+  expressAsyncHandler(async (req: Request, res: Response) => {
+    try {
+      const updatedBooking = await updateBooking(req.body);
+      res.status(StatusCodes.OK).json({ booking: updatedBooking, message: "تم تحديث الحجز بنجاح" });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+        res.status(StatusCodes.BAD_REQUEST).json({
+          message: "تعارض في تعديل الحجز، الوقت أو التاريخ مستخدم بالفعل.",
+        });
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "statusCode" in error &&
+        "message" in error
+      ) {
+        // هنا بنفترض إن error من نوع AppError أو مشابه
+        const typedError = error as { statusCode: number; message: string };
+        res.status(typedError.statusCode).json({ message: typedError.message });
+      } else {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          message: "حدث خطأ أثناء محاولة تحديث الحجز. برجاء المحاولة لاحقًا.",
+        });
+      }
+    }
+  }),
+);
+
+
+
+
 
 export default bookingRouter;

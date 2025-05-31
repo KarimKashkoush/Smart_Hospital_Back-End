@@ -3,14 +3,12 @@ import { createMedicalRecord } from "./create-medical-record.service";
 import { getMedicalRecords } from "./get-medical-records.service";
 import { validateBody } from "src/shared/validate-body";
 import { StatusCodes } from "http-status-codes";
-import { checkRoles } from "src/shared/middlewares/checkRoles";
 import { createMedicalRecordSchema } from "./medical-record.validation"; // تأكد من مسار الاستيراد
 import { z } from "zod";
 const medicalRecordRouter: Router = Router();
 
 medicalRecordRouter.post(
       "/create-medical-record",
-      checkRoles(["doctor", "admin"]), // بس الدكتور يقدر يضيف
       validateBody(createMedicalRecordSchema), // يتحقق من صحة البيانات
       async (req: Request, res: Response) => {
             try {

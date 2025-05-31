@@ -21,7 +21,7 @@ export const getPatientById = async (id: string) => {
                   MedicalExcuse: true,
                   medicalRecord: true,
                   LabTest: true,
-                  
+                  bookings: true,
             },
       });
 

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const createBookingSchema = z.object({
-  patientId: z.number().int(),
+  patientId: z.number().int().optional(),
   timeSlotId: z.number().int(),
   dateTime: z.string().refine(val => !isNaN(Date.parse(val)), {
     message: "Invalid date-time format",

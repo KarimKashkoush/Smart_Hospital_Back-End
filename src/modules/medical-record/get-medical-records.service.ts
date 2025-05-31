@@ -9,6 +9,7 @@ export const getMedicalRecords = async () => {
                               name: true,
                               email: true,
                               phone: true,
+                              category: true,
                         },
                   },
                   patient: {

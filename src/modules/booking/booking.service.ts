@@ -14,7 +14,7 @@ export const createBooking = async (data: CreateBookingData) => {
   const { timeSlotId, dateTime, patientId, patientName } = data;
 
   if (!dateTime) {
-    throw new AppError(StatusCodes.BAD_REQUEST, "تاريخ ووقت الحجز مطلوب");
+    throw new AppError(StatusCodes.BAD_REQUEST, "Booking date and time required");
   }
 
   const date = new Date(dateTime);
