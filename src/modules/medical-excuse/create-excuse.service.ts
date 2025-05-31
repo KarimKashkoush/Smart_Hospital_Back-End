@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { createMedicalExcuseSchema } from "./excuse.validation";
-import { Express } from "express";
 import { db } from "src";
 import { AppError } from "src/shared/app-error";
 import { StatusCodes } from "http-status-codes";
