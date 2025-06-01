@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { db } from "index";
+import { db } from "src";
 import { AppError } from "src/shared/app-error";
 
 export const getDoctors = async () => {
@@ -11,6 +11,7 @@ export const getDoctors = async () => {
             bookings: true, // لو عايز تجيب الحجوزات لكل وقت
           },
         },
+        Rating: true
       },
     });
 
@@ -52,7 +53,13 @@ export const getDoctorDetails = async (id: string) => {
         userId: Number(id),
       },
       include: {
-        medicalExcuse: true, // دي السطر اللي بيجيب كل الأعذار الطبية الخاصة بالدكتور
+        medicalExcuse: true,
+        Rating: true,  // هنا جبت التقييمات
+        timeSlots: {
+          include: {
+            bookings: true,
+          },
+        },
       },
     });
 
@@ -60,16 +67,8 @@ export const getDoctorDetails = async (id: string) => {
       throw new AppError(StatusCodes.NOT_FOUND, "Doctor was not found");
     }
 
-    const timeSlots = await db.timeSlots.findMany({
-      where: {
-        doctorId: doctor.userId,
-      },
-      include: {
-        bookings: true,
-      },
-    });
-
-    const bookings = timeSlots.map((slot) => {
+    // ترتيب بيانات timeSlots بشكل مبسط مع الحجوزات
+    const timeSlots = doctor.timeSlots.map((slot) => {
       const booked = slot.bookings.map((booking) => ({
         date: booking.date,
         dayOfWeek: slot.dayOfWeek,
@@ -85,9 +84,11 @@ export const getDoctorDetails = async (id: string) => {
       };
     });
 
-    return { ...doctor, timeSlots: bookings };
+    return {
+      ...doctor,
+      timeSlots,
+    };
   } catch {
     throw new AppError(StatusCodes.BAD_REQUEST, "Invalid ID");
   }
 };
-

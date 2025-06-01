@@ -47,7 +47,6 @@ medicalExcuseRouter.post(
 
 medicalExcuseRouter.get(
   "/get-patient-medical-excuses/:id",
-  checkRoles(["patient"]),
   expressAsyncHandler(async (req: Request, res: Response) => {
     const medicalExcuses = await getPatientMedicalExcuses(+req.params.id);
 
@@ -57,7 +56,6 @@ medicalExcuseRouter.get(
 
 medicalExcuseRouter.get(
   "/get-doctor-medical-excuses/:id",
-  checkRoles(["doctor"]),
   expressAsyncHandler(async (req: Request, res: Response) => {
     const medicalExcuses = await getDoctorMedicalExcuses(+req.params.id);
 
@@ -67,7 +65,6 @@ medicalExcuseRouter.get(
 
 medicalExcuseRouter.post(
   "/set-medical-excuse-approval/:id",
-  checkRoles(["doctor"]),
   validateBody(z.object({ status: z.enum(["approved", "rejected"]) })),
   expressAsyncHandler(async (req: Request, res: Response) => {
     const medicalExcuse = await setMedicalExcuseApproval(

@@ -1,4 +1,4 @@
-import { db } from "index";
+import { db } from "src";
 import { createMedicalRecordSchema } from "./medical-record.validation";
 import { AppError } from "src/shared/app-error";
 import { z } from "zod";

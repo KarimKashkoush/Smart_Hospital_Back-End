@@ -130,7 +130,7 @@ model Booking {
   patientId   Int?
   timeSlotId  Int
   patientName String
-  status      String    @default("confirmed")
+  status      String    @default("pending")
   patient     Patient?  @relation(fields: [patientId], references: [userId])
   timeSlot    TimeSlots @relation(fields: [timeSlotId], references: [id])
   createdAt   DateTime  @default(now())
@@ -195,6 +195,7 @@ model MedicalRecord {
   treatmentDetails String
   datetime         DateTime @default(now())
   status           String   @default("pending") // أضفت الحالة هنا
+  isRated          Boolean  @default(false) // هل تم التقييم؟ القيمة الافتراضية "لا"
   patientId        Int
   doctorId         Int
   doctor           Doctor   @relation(fields: [doctorId], references: [userId])

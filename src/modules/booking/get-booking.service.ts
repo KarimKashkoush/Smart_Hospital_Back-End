@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { db } from "index";
+import { db } from "src";
 import { AppError } from "src/shared/app-error";
 
 export const getDoctorBookings = async (id: string) => {
@@ -9,23 +9,28 @@ export const getDoctorBookings = async (id: string) => {
         doctorId: +id,
       },
       include: {
+        doctor: true,
         bookings: {
           include: {
-            patient: true, 
-          }
+            patient: true, // جلب بيانات المريض بالكامل
+          },
         },
       },
     });
 
-    const timeSlotsBookings = timeSlots.map((timeSlot) => {
-      return timeSlot.bookings.map((booking) => ({
+    const timeSlotsBookings = timeSlots.map((timeSlot) =>
+      timeSlot.bookings.map((booking) => ({
         id: booking.id,
         date: booking.date,
-        patientId: booking.patientId,
-        patientName: booking.patient?.name,
         status: booking.status,
-      }));
-    });
+        patientId: booking.patientId,
+        patientName: booking.patient.name,       // اسم المريض
+        patientEmail: booking.patient.email,
+        patient: booking.patient, // ✅ كل بيانات المريض
+        doctorId: timeSlot.doctor.userId,
+        doctorName: timeSlot.doctor.name,
+      }))
+    );
 
     const bookings = timeSlotsBookings.flat();
 
@@ -34,3 +39,4 @@ export const getDoctorBookings = async (id: string) => {
     throw new AppError(StatusCodes.BAD_REQUEST, "Invalid ID");
   }
 };
+

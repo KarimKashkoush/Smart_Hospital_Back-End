@@ -1,4 +1,4 @@
-import { db } from "index";
+import { db } from "src";
 
 export async function getLabTests({ filter }: { filter: "accepted" | "all" }) {
   if (filter === "accepted")

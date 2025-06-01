@@ -1,6 +1,6 @@
 import { Doctor } from "@prisma/client";
 import { StatusCodes } from "http-status-codes";
-import { db } from "index";
+import { db } from "src";
 import { AppError } from "src/shared/app-error";
 
 export async function getCategoryDoctors(id: string): Promise<Doctor[]> {

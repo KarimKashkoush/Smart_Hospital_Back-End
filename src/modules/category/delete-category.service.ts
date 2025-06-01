@@ -1,5 +1,5 @@
 import { Category } from "@prisma/client";
-import { db } from "index";
+import { db } from "src";
 import { unlink } from "fs/promises";
 import { AppError } from "src/shared/app-error";
 import { StatusCodes } from "http-status-codes";

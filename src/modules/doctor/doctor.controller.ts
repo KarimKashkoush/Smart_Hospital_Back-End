@@ -17,7 +17,7 @@ doctorRouter.post(
   validateBody(createDoctorSchema),
   expressAsyncHandler(async (req: Request, res: Response) => {
     const doctor = await createDoctor(req.body);
-    res.status(StatusCodes.CREATED).json({ doctor, message: "Successful" });
+    res.status(StatusCodes.CREATED).json(doctor);
   }),
 );
 
@@ -25,7 +25,7 @@ doctorRouter.get(
   "/doctors",
   expressAsyncHandler(async (req: Request, res: Response) => {
     const doctors = await getDoctors();
-    res.status(StatusCodes.OK).json({ doctors, message: "Successful" });
+    res.status(StatusCodes.OK).json(doctors);
   }),
 );
 
@@ -33,7 +33,7 @@ doctorRouter.get(
   "/get-doctor/:id",
   expressAsyncHandler(async (req: Request, res: Response) => {
     const doctor = await getDoctorDetails(req.params.id);
-    res.status(StatusCodes.OK).json({ doctor, message: "Successful" });
+    res.status(StatusCodes.OK).json(doctor);
   }),
 );
 
@@ -47,22 +47,18 @@ doctorRouter.patch(
     },
   }),
   expressAsyncHandler(async (req: Request, res: Response) => {
-    // بنمرر بيانات التحديث، وبنضيف الصورة لو موجودة مع الـprefix "/"
     const doctor = await updateDoctor(req.params.id, req.body);
-
-    res.status(StatusCodes.OK).json({ doctor, message: "Successful" });
+    res.status(StatusCodes.OK).json(doctor);
   }),
 );
-
-
-
 
 doctorRouter.delete(
   "/delete-doctor/:id",
   checkRoles(["admin", "doctor"]),
   expressAsyncHandler(async (req: Request, res: Response) => {
     const doctor = await deleteDoctor(req.params.id);
-    res.status(StatusCodes.OK).json({ doctor, message: "Successful" });
+    res.status(StatusCodes.OK).json(doctor);
   }),
 );
+
 export default doctorRouter;

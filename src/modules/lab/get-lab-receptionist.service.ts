@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { db } from "index";
+import { db } from "src";
 import { AppError } from "src/shared/app-error";
 
 export const getLabReceptionistDetails = async (id: string) => {

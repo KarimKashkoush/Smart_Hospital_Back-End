@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { updateMedicalExcuseSchema } from "./excuse.validation";
-import { db } from "index";
+import { db } from "src";
 
 export async function updateMedicalExcuse(
   medicalExcuseId: number,
