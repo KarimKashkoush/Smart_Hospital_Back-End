@@ -24,6 +24,8 @@ bookingRouter.post(
       const booking = await createBooking(req.body);
       res.status(StatusCodes.CREATED).json({ booking, message: "تم الحجز بنجاح" });
     } catch (error) {
+      console.error("Booking Error:", error); // 👈 إضافة السطر ده
+
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
         res.status(StatusCodes.BAD_REQUEST).json({
           message: "يوجد حجز بالفعل في نفس الموعد، برجاء اختيار وقت مختلف.",
