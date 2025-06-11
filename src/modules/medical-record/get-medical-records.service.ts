@@ -20,6 +20,14 @@ export const getMedicalRecords = async () => {
                               phone: true,
                         },
                   },
+                  rating: { // ✅ هنا نضمّن التقييم
+                        select: {
+                              id: true,
+                              rating: true,
+                              comment: true,
+                              createdAt: true,
+                        },
+                  },
             },
             orderBy: {
                   datetime: "desc",

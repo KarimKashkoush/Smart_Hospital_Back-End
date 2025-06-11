@@ -6,23 +6,26 @@ export const createRating = async ({
       patientId,
       rating,
       comment,
+      medicalRecordId,
 }: {
       doctorId: number;
       patientId: number;
       rating: number;
       comment?: string;
+      medicalRecordId: number;
 }) => {
+      // تأكد إنه جاي
+      if (!medicalRecordId) {
+            throw new AppError(400, "medicalRecordId is required");
+      }
+
+      // تحقق هل تم تقييم هذا السجل الطبي بالفعل
       const exists = await db.rating.findUnique({
-            where: {
-                  doctorId_patientId: {
-                        doctorId,
-                        patientId,
-                  },
-            },
+            where: { medicalRecordId },
       });
 
       if (exists) {
-            throw new AppError(400, "You already rated this doctor.");
+            throw new AppError(400, "This medical record is already rated.");
       }
 
       const newRating = await db.rating.create({
@@ -31,8 +34,10 @@ export const createRating = async ({
                   patientId,
                   rating,
                   comment,
+                  medicalRecordId,
             },
       });
 
       return newRating;
 };
+
