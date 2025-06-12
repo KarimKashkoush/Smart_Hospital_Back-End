@@ -41,7 +41,9 @@ export const createBooking = async (data: CreateBookingData) => {
       where: {
         patient: { userId: patientId },
         timeSlot: { doctorId: timeSlot.doctorId },
-        status: { in: ["pending"] }, 
+        status: {
+          notIn: ["cancelled", "confirmed"], 
+        },
       },
     });
 

@@ -43,7 +43,6 @@ categoryRouter.post(
   }),
 );
 
-
 categoryRouter.get(
   "/get-categories",
   expressAsyncHandler(async (_: Request, res: Response) => {
